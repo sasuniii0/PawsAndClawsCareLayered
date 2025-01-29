@@ -26,7 +26,7 @@ public class StartPageController implements Initializable {
 
     @FXML
     void ClickOnLabel(MouseEvent event) {
-        NavigateTo("/view/LoginPage.fxml");
+        NavigateTo("/LoginPage.fxml");
     }
 
     @Override

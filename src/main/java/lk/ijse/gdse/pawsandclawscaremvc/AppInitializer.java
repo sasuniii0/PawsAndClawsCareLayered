@@ -15,7 +15,7 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent load = FXMLLoader.load(getClass().getResource("/view/loading.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/loading.fxml"));
         stage.setScene(new Scene(load));
         stage.show();
 
@@ -23,7 +23,7 @@ public class AppInitializer extends Application {
 
             @Override
             protected Scene call() throws Exception {
-                FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/LoginPage.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/LoginPage.fxml"));
                 return new Scene(fxmlLoader.load());
             }
         };

@@ -74,7 +74,7 @@ public class DashBoardPageController implements Initializable {
 
     @FXML
     void customerManageOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/CustomerManage.fxml");
+        navigateTo("/CustomerManage.fxml");
     }
 
     private void navigateTo(String fxmlPath) throws IOException {
@@ -90,52 +90,52 @@ public class DashBoardPageController implements Initializable {
 
     @FXML
     void empManageOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/EmpManage.fxml");
+        navigateTo("/EmpManage.fxml");
     }
 
     @FXML
     void feedbackOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/Intro.fxml");
+        navigateTo("/Intro.fxml");
     }
 
     @FXML
     void generateRepOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/Payment.fxml");
+        navigateTo("/Payment.fxml");
     }
 
     @FXML
     void invenManageOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/InvenManage.fxml");
+        navigateTo("/InvenManage.fxml");
     }
 
     @FXML
     void orderManageOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/OrderManage.fxml");
+        navigateTo("/OrderManage.fxml");
     }
 
     @FXML
     void petManageOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/PetManage.fxml");
+        navigateTo("/PetManage.fxml");
     }
 
     @FXML
     void productManageOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/Product.fxml");
+        navigateTo("/Product.fxml");
     }
 
     @FXML
     void reservationOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/Reservation.fxml");
+        navigateTo("/Reservation.fxml");
     }
 
     @FXML
     void serviceManageOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/Services.fxml");
+        navigateTo("/Services.fxml");
     }
 
     @FXML
     void supManageOnClickAction(ActionEvent event) throws IOException {
-        navigateTo("/view/SupManage.fxml");
+        navigateTo("/SupManage.fxml");
     }
 
     public void BtnLogOutOnClickAction(ActionEvent actionEvent) throws IOException {
@@ -145,7 +145,7 @@ public class DashBoardPageController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.YES) {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(new Scene(
-                    FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"))));
+                    FXMLLoader.load(getClass().getResource("/LoginPage.fxml"))));
             stage.centerOnScreen();
         }
     }
@@ -153,20 +153,20 @@ public class DashBoardPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            navigateTo("/view/Intro.fxml");
+            navigateTo("/Intro.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void BtnPaymentManageOnAction(ActionEvent actionEvent) throws IOException {
-        navigateTo("/view/Payment.fxml");
+        navigateTo("/Payment.fxml");
     }
 
     public void LblDashOnAction(MouseEvent mouseEvent) throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.setScene(new Scene(
-                FXMLLoader.load(getClass().getResource("/view/DashBoardPage.fxml"))));
+                FXMLLoader.load(getClass().getResource("/DashBoardPage.fxml"))));
         stage.centerOnScreen();
     }
 }

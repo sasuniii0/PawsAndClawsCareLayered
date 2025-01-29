@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.gdse.pawsandclawscaremvc.util.security.VerificationCodeGenerator;
+import lk.ijse.gdse.pawsandclawscaremvc.dao.security.VerificationCodeGenerator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -85,7 +85,7 @@ public class forgotPwdController {
 
             Stage window = (Stage) BtnVerify.getScene().getWindow();
             window.close();
-            Parent load = FXMLLoader.load(getClass().getResource("/view/VerifyAccount.fxml"));
+            Parent load = FXMLLoader.load(getClass().getResource("/VerifyAccount.fxml"));
             Scene scene = new Scene(load);
             Stage stage = new Stage();
             stage.setScene(scene);

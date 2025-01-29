@@ -19,8 +19,8 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 import lk.ijse.gdse.pawsandclawscaremvc.db.DBConnection;
 import lk.ijse.gdse.pawsandclawscaremvc.dto.CustomerDto;
-import lk.ijse.gdse.pawsandclawscaremvc.dto.tm.CustomerTm;
-import lk.ijse.gdse.pawsandclawscaremvc.model.CustomerModel;
+import lk.ijse.gdse.pawsandclawscaremvc.view.tdm.CustomerTm;
+import lk.ijse.gdse.pawsandclawscaremvc.dao.custom.impl.CustomerDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -108,7 +108,7 @@ public class CustomerManageController implements Initializable {
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
-            boolean isDeleted = customerModel.deleteCustomer(customerId);
+            boolean isDeleted = customerDAOImpl.deleteCustomer(customerId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION,"Customer Deleted").show();
@@ -149,7 +149,7 @@ public class CustomerManageController implements Initializable {
         refreshPage();
     }
 
-    CustomerModel customerModel = new CustomerModel();
+    CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
     @FXML
     void SaveOnClickAction(ActionEvent event) throws SQLException {
         String custId = LblCustId.getText();
@@ -192,7 +192,7 @@ public class CustomerManageController implements Initializable {
         if (isValidEmail && isValidContact && isValidName && isValidAddress){
             CustomerDto customerDto = new CustomerDto(custId, custName, address, email, contactNumber);
 
-            boolean isSaved = customerModel.saveCustomer(customerDto);
+            boolean isSaved = customerDAOImpl.saveCustomer(customerDto);
             if (isSaved){
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION,"Customer Saved....").show();
@@ -218,7 +218,7 @@ public class CustomerManageController implements Initializable {
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<CustomerDto> customerDtos = customerModel.getAllCustomers();
+        ArrayList<CustomerDto> customerDtos = customerDAOImpl.getAllCustomers();
 
         ObservableList<CustomerTm> customerTms = FXCollections.observableArrayList();
 
@@ -236,7 +236,7 @@ public class CustomerManageController implements Initializable {
     }
 
     private void loadNextCustomerId() throws SQLException {
-        String nextCustomerId = customerModel.getNextCustomerId();
+        String nextCustomerId = customerDAOImpl.getNextCustomerId();
         LblCustId.setText(nextCustomerId);
     }
 
@@ -252,7 +252,7 @@ public class CustomerManageController implements Initializable {
 
         try {
             // Load the mail dialog from FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CustMailSend.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CustMailSend.fxml"));
             Parent load = loader.load();
 
             CustMailSenderController sendMailController = loader.getController();
@@ -320,7 +320,7 @@ public class CustomerManageController implements Initializable {
         if (isValidEmail && isValidContact && isValidName && isValidAddress){
             CustomerDto customerDto = new CustomerDto(custId, custName, address, email, contactNumber);
 
-            boolean isSaved = customerModel.updateCustomer(customerDto);
+            boolean isSaved = customerDAOImpl.updateCustomer(customerDto);
             if (isSaved){
                 refreshPage();
 
@@ -384,7 +384,7 @@ public class CustomerManageController implements Initializable {
 
     public void BtnSearchCustomerOnClickAction(ActionEvent actionEvent) throws IOException {
        try{
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SearchCustomer.fxml"));
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/SearchCustomer.fxml"));
            Parent load = loader.load();
 
            Stage stage = new Stage();

@@ -49,7 +49,7 @@ public class verifyAccController {
     @FXML
     void BtnVerifyOnAction(ActionEvent event) throws IOException {
         if (String.valueOf(code).equals(TxtCode.getText().trim())) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ResetPwd.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ResetPwd.fxml"));
             Parent parent = fxmlLoader.load();
 
             // Fetch and set data to ResetPasswordController

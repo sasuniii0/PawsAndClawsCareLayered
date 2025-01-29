@@ -46,7 +46,7 @@ public class signUpController {
 
     @FXML
     void BtnAlreadyHaveAnAccountOnAction(ActionEvent event) throws IOException {
-        setUi("/view/LoginPage.fxml");
+        setUi("/LoginPage.fxml");
     }
 
     @FXML
@@ -74,7 +74,7 @@ public class signUpController {
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Welcome!").show();
-                setUi("/view/LoginPage.fxml");
+                setUi("/LoginPage.fxml");
             } else {
                 new Alert(Alert.AlertType.WARNING, "Try Again!").show();
             }

@@ -15,8 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.gdse.pawsandclawscaremvc.db.Database;
 import lk.ijse.gdse.pawsandclawscaremvc.dto.UserDto;
-import lk.ijse.gdse.pawsandclawscaremvc.model.UserModel;
+import lk.ijse.gdse.pawsandclawscaremvc.dao.custom.impl.UserDAOImpl;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class LoginPageController {
@@ -50,7 +51,7 @@ public class LoginPageController {
     private Label ShowLblId;
 
     @FXML
-    void signInOnClickAction(ActionEvent event) throws IOException {
+    void signInOnClickAction(ActionEvent event) throws IOException, SQLException {
         String email = usrNameTxt.getText().toLowerCase().trim();
         String password = pwdTxt.getText().trim();
 
@@ -63,10 +64,10 @@ public class LoginPageController {
             new Alert(Alert.AlertType.WARNING, "Invalid email format!").show();
             return;
         }
-        boolean isAvailable = UserModel.searchUser(email, password);
+        boolean isAvailable = UserDAOImpl.searchUser(email, password);
         if (isAvailable) {
             signInAncPane.getChildren().clear();
-            Parent load = FXMLLoader.load(getClass().getResource("/view/DashBoardPage.fxml"));
+            Parent load = FXMLLoader.load(getClass().getResource("/DashBoardPage.fxml"));
             signInAncPane.getChildren().add(load);
         }else {
             new Alert(Alert.AlertType.WARNING, String.format("User not found (%s)", email)).show();
