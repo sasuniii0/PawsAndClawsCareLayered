@@ -454,7 +454,7 @@ public class ReservationController implements Initializable {
 
 
     private void loadCustomerIds() throws SQLException {
-        ArrayList<String> customerIds = customerDAOImpl.getAllCustomerIds();
+        ArrayList<String> customerIds = customerDAOImpl.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(customerIds);
         CmbCustId.setItems(observableList);
