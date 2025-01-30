@@ -1,4 +1,6 @@
 package lk.ijse.gdse.pawsandclawscaremvc.bo.custom.impl;
 
-public class EmployeeBOImpl {
+import lk.ijse.gdse.pawsandclawscaremvc.bo.custom.EmployeeBO;
+
+public class EmployeeBOImpl implements EmployeeBO {
 }

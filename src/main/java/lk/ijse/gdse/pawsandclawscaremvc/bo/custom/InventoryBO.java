@@ -1,4 +1,6 @@
 package lk.ijse.gdse.pawsandclawscaremvc.bo.custom;
 
-public interface InventoryBO {
+import lk.ijse.gdse.pawsandclawscaremvc.bo.SuperBO;
+
+public interface InventoryBO extends SuperBO {
 }

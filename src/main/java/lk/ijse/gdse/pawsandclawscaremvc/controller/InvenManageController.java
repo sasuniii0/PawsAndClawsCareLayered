@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import lk.ijse.gdse.pawsandclawscaremvc.dto.InventoryDto;
+import lk.ijse.gdse.pawsandclawscaremvc.entity.Inventory;
 import lk.ijse.gdse.pawsandclawscaremvc.view.tdm.InventoryTm;
 import lk.ijse.gdse.pawsandclawscaremvc.dao.custom.impl.InvenManageDAOImpl;
 import java.net.URL;
@@ -75,16 +76,16 @@ public class InvenManageController implements Initializable {
 
         try {
             // Call the method to search for products by catalog
-            ArrayList<InventoryDto> filteredProducts = invenManageDAOImpl.searchProductsByCatalog(searchText);
+            ArrayList<Inventory> filteredProducts = invenManageDAOImpl.searchProductsByCatalog(searchText);
 
             // Convert the filtered products to ProductTm objects
             ObservableList<InventoryTm> filteredList = FXCollections.observableArrayList();
-            for (InventoryDto inventoryDto : filteredProducts) {
+            for (Inventory inventory : filteredProducts) {
                 InventoryTm inventoryTm = new InventoryTm(
-                        inventoryDto.getInventoryId(),
-                        inventoryDto.getStockUpdate(),
-                        inventoryDto.getInventoryCategory(),
-                        inventoryDto.getAvailabilityStatus()
+                        inventory.getInventoryId(),
+                        inventory.getStockUpdate(),
+                        inventory.getInventoryCategory(),
+                        inventory.getAvailabilityStatus()
                 );
                 filteredList.add(inventoryTm);
             }
@@ -107,7 +108,7 @@ public class InvenManageController implements Initializable {
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
-            boolean isDeleted = invenManageDAOImpl.deleteItem(invenId);
+            boolean isDeleted = invenManageDAOImpl.delete(invenId);
             if (isDeleted){
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION,"Inventory Deleted").show();
@@ -133,8 +134,8 @@ public class InvenManageController implements Initializable {
         TxtCategory.setStyle(TxtCategory.getStyle() + " -fx-border-color: blue;");
         TxtStock.setStyle(TxtCategory.getStyle() + " -fx-border-color: blue;");
 
-        InventoryDto inventoryDto = new InventoryDto(inventoryId,stockUpdate,category,status);
-        boolean isSaved = invenManageDAOImpl.saveInventory(inventoryDto);
+        Inventory inventory = new Inventory(inventoryId,stockUpdate,category,status);
+        boolean isSaved = invenManageDAOImpl.save(inventory);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Saved", ButtonType.OK).show();
@@ -169,8 +170,8 @@ public class InvenManageController implements Initializable {
         TxtCategory.setStyle(TxtCategory.getStyle() + " -fx-border-color: blue;");
         TxtStock.setStyle(TxtCategory.getStyle() + " -fx-border-color: blue;");
 
-        InventoryDto inventoryDto = new InventoryDto(inventoryId,stockUpdate,category,status);
-        boolean isSaved = invenManageDAOImpl.updateInventory(inventoryDto);
+        Inventory inventory = new Inventory(inventoryId,stockUpdate,category,status);
+        boolean isSaved = invenManageDAOImpl.update(inventory);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Updated", ButtonType.OK).show();
@@ -227,16 +228,16 @@ public class InvenManageController implements Initializable {
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<InventoryDto> inventoryDtos = invenManageDAOImpl.getAllInventory();
+        ArrayList<Inventory> inventory = invenManageDAOImpl.getAll();
 
         ObservableList<InventoryTm> inventoryTms = FXCollections.observableArrayList();
 
-        for (InventoryDto inventoryDto : inventoryDtos) {
+        for (Inventory entity : inventory) {
             InventoryTm inventoryTm = new InventoryTm(
-                    inventoryDto.getInventoryId(),
-                    inventoryDto.getStockUpdate(),
-                    inventoryDto.getInventoryCategory(),
-                    inventoryDto.getAvailabilityStatus()
+                    entity.getInventoryId(),
+                    entity.getStockUpdate(),
+                    entity.getInventoryCategory(),
+                    entity.getAvailabilityStatus()
             );
             inventoryTms.add(inventoryTm);
         }
@@ -246,7 +247,7 @@ public class InvenManageController implements Initializable {
     InvenManageDAOImpl invenManageDAOImpl = new InvenManageDAOImpl();
 
     private void loadNextInventoryId() throws SQLException {
-        String nextInventoryId = invenManageDAOImpl.getNextInventoryId();
+        String nextInventoryId = invenManageDAOImpl.getNextId();
         LblInvenId.setText(nextInventoryId);
     }
 }

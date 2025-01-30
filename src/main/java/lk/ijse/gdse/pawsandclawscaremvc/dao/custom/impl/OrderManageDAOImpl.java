@@ -4,6 +4,7 @@ import lk.ijse.gdse.pawsandclawscaremvc.dao.custom.OrderDAO;
 import lk.ijse.gdse.pawsandclawscaremvc.db.DBConnection;
 import lk.ijse.gdse.pawsandclawscaremvc.dto.OrdersDto;
 import lk.ijse.gdse.pawsandclawscaremvc.dao.SQLUtil;
+import lk.ijse.gdse.pawsandclawscaremvc.entity.Orders;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 
 public class OrderManageDAOImpl implements OrderDAO {
     private final OrderDetailsDAOImpl orderDetailsDAOImpl = new OrderDetailsDAOImpl();
-    public String getNextOrderId() throws SQLException {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select orderId from Orders order by orderId desc limit 1");
 
         if (rst.next()) {
@@ -24,16 +25,16 @@ public class OrderManageDAOImpl implements OrderDAO {
         return "O001";
     }
 
-    public boolean saveOrder(OrdersDto ordersDto) throws SQLException {
+    public boolean save(Orders orders) throws SQLException {
         Connection connection = DBConnection.getInstance().getConnection();
         try {
             connection.setAutoCommit(false); // 1
 
             boolean isOrderSaved = SQLUtil.execute(
                     "INSERT INTO Orders (orderId, custId, date) VALUES (?, ?, ?)",
-                    ordersDto.getOrderId(),
-                    ordersDto.getCustomerId(),
-                    ordersDto.getOrderDate()
+                    orders.getOrderId(),
+                    orders.getCustomerId(),
+                    orders.getOrderDate()
             );
             if (isOrderSaved) {
                 boolean isOrderDetailListSaved = orderDetailsDAOImpl.saveOrderDetailsList(ordersDto.getOrderDetailsDtos());

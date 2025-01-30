@@ -1,4 +1,6 @@
 package lk.ijse.gdse.pawsandclawscaremvc.bo.custom.impl;
 
-public class ServiceDetailsBOImpl {
+import lk.ijse.gdse.pawsandclawscaremvc.bo.custom.ServiceDetailsBO;
+
+public class ServiceDetailsBOImpl implements ServiceDetailsBO {
 }

@@ -30,7 +30,7 @@ public class ServiceDetailsDAOImpl implements ServiceDetailDAO {
         return true;
     }
 
-    private boolean saveReservationDetails(ServiceDetailsDto serviceDetailsDto) throws SQLException {
+     boolean saveReservationDetails(ServiceDetailsDto serviceDetailsDto) throws SQLException {
         return  SQLUtil.execute(
                 "insert into ServiceDetails values (?,?,?)",
                 serviceDetailsDto.getServiceId(),

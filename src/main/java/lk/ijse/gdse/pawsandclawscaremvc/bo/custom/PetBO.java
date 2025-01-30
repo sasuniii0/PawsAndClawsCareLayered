@@ -1,4 +1,6 @@
 package lk.ijse.gdse.pawsandclawscaremvc.bo.custom;
 
-public interface PetBO {
+import lk.ijse.gdse.pawsandclawscaremvc.bo.SuperBO;
+
+public interface PetBO extends SuperBO {
 }

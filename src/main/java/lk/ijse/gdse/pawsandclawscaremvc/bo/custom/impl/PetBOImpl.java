@@ -1,4 +1,6 @@
 package lk.ijse.gdse.pawsandclawscaremvc.bo.custom.impl;
 
-public class PetBOImpl {
+import lk.ijse.gdse.pawsandclawscaremvc.bo.custom.PetBO;
+
+public class PetBOImpl implements PetBO {
 }

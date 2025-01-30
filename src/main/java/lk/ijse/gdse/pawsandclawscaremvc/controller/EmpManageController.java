@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import lk.ijse.gdse.pawsandclawscaremvc.dto.EmployeeDto;
+import lk.ijse.gdse.pawsandclawscaremvc.entity.Employee;
 import lk.ijse.gdse.pawsandclawscaremvc.view.tdm.EmployeeTm;
 import lk.ijse.gdse.pawsandclawscaremvc.dao.custom.impl.EmpManageDAOImpl;
 import lk.ijse.gdse.pawsandclawscaremvc.dao.custom.impl.OrderManageDAOImpl;
@@ -151,7 +152,7 @@ public class EmpManageController implements Initializable {
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
-            boolean isDeleted = empManageDAOImpl.deleteService(serviceIdText);
+            boolean isDeleted = empManageDAOImpl.delete(serviceIdText);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION,"Service Deleted").show();
@@ -183,9 +184,9 @@ public class EmpManageController implements Initializable {
         TxtEndTime.setStyle(TxtEndTime.getStyle()+"-fx-border-color: blue;");
         TxtContactNumber.setStyle(TxtContactNumber.getStyle()+"-fx-border-color: blue;");
 
-        EmployeeDto employeeDto = new EmployeeDto(empId,startTime,endTime,role,contactNumber,serviceId,orderId,employeeType);
+        Employee employee = new Employee(empId,startTime,endTime,role,contactNumber,serviceId,orderId,employeeType);
 
-        boolean isSaved = empManageDAOImpl.saveEmployee(employeeDto);
+        boolean isSaved = empManageDAOImpl.save(employee);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Employee saved successfully").show();
@@ -200,20 +201,20 @@ public class EmpManageController implements Initializable {
 
         try {
             // Call the method to search for products by catalog
-            ArrayList<EmployeeDto> filteredEmployee = empManageDAOImpl.searchEmployeeByRole(searchText);
+            ArrayList<Employee> filteredEmployee = empManageDAOImpl.searchEmployeeByRole(searchText);
 
             // Convert the filtered products to ProductTm objects
             ObservableList<EmployeeTm> filteredList = FXCollections.observableArrayList();
-            for (EmployeeDto employeeDto : filteredEmployee) {
+            for (Employee employee : filteredEmployee) {
                 EmployeeTm employeeTm = new EmployeeTm(
-                        employeeDto.getEmpId(),
-                        employeeDto.getStartTime(),
-                        employeeDto.getEndTime(),
-                        employeeDto.getRole(),
-                        employeeDto.getContactNumber(),
-                        employeeDto.getServiceId(),
-                        employeeDto.getOrderId(),
-                        employeeDto.getEmployeeType()
+                        employee.getEmpId(),
+                        employee.getStartTime(),
+                        employee.getEndTime(),
+                        employee.getRole(),
+                        employee.getContactNumber(),
+                        employee.getServiceId(),
+                        employee.getOrderId(),
+                        employee.getEmployeeType()
                 );
                 filteredList.add(employeeTm);
             }
@@ -245,9 +246,9 @@ public class EmpManageController implements Initializable {
         TxtEndTime.setStyle(TxtEndTime.getStyle()+"-fx-border-color: blue;");
         TxtContactNumber.setStyle(TxtContactNumber.getStyle()+"-fx-border-color: blue;");
 
-        EmployeeDto employeeDto = new EmployeeDto(empId,startTime,endTime,role,contactNumber,serviceId,orderId,employeeType);
+        Employee employee = new Employee(empId,startTime,endTime,role,contactNumber,serviceId,orderId,employeeType);
 
-        boolean isSaved = empManageDAOImpl.updateEmployee(employeeDto);
+        boolean isSaved = empManageDAOImpl.update(employee);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Employee updated successfully").show();
@@ -369,12 +370,12 @@ ServiceDAOImpl serviceDAOImpl = new ServiceDAOImpl();
         TblEmployee.getItems().clear();
 
         // Fetch all employees from the model
-        ArrayList<EmployeeDto> employees = empManageDAOImpl.getAllEmployees();
+        ArrayList<Employee> employees = empManageDAOImpl.getAll();
 
         // Convert EmployeeDto objects to EmployeeTm objects
         ObservableList<EmployeeTm> employeeList = FXCollections.observableArrayList();
         System.out.println(employeeList);
-        for (EmployeeDto employee : employees) {
+        for (Employee employee : employees) {
             employeeList.add(new EmployeeTm(
                     employee.getEmpId(),
                     employee.getRole(),
@@ -466,11 +467,11 @@ ServiceDAOImpl serviceDAOImpl = new ServiceDAOImpl();
     }
 
     private void loadTblData() throws SQLException {
-        ArrayList<EmployeeDto> employeeDto = empManageDAOImpl.getAllEmployees();
+        ArrayList<Employee> employeeDto = empManageDAOImpl.getAll();
 
         ObservableList<EmployeeTm> employeeTms = FXCollections.observableArrayList();
 
-        for (EmployeeDto employeeDtos : employeeDto) {
+        for (Employee employeeDtos : employeeDto) {
             EmployeeTm employeeTm = new EmployeeTm(
                     employeeDtos.getEmpId(),
                     employeeDtos.getRole(),
@@ -488,7 +489,7 @@ ServiceDAOImpl serviceDAOImpl = new ServiceDAOImpl();
     }
 
     private void loadNextEmplId() throws SQLException {
-        String nextEmpId = empManageDAOImpl.getNextEmpId();
+        String nextEmpId = empManageDAOImpl.getNextId();
         LblEmpId.setText(nextEmpId);
     }
 }

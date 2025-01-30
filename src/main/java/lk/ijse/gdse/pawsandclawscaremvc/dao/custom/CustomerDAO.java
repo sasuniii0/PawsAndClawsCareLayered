@@ -9,12 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface CustomerDAO {
-    public boolean saveCustomer(CustomerDto customerDto) throws SQLException;
-    public String getNextCustomerId() throws SQLException;
-    public ArrayList<CustomerDto> getAllCustomers() throws SQLException;
-    public boolean deleteCustomer(String customerId) throws SQLException;
-    public boolean updateCustomer(CustomerDto customerDto) throws SQLException ;
+public interface CustomerDAO extends CrudDAO<Customer>{
     public ArrayList<String> getAllCustomerIds() throws SQLException;
     public CustomerDto findById(String selectedCustId) throws SQLException;
     public CustomerDto SearchCustomerByContact(String contactNumber);

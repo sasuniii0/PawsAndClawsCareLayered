@@ -1,4 +1,6 @@
 package lk.ijse.gdse.pawsandclawscaremvc.bo.custom.impl;
 
-public class UserBOImpl {
+import lk.ijse.gdse.pawsandclawscaremvc.bo.custom.UserBO;
+
+public class UserBOImpl implements UserBO {
 }

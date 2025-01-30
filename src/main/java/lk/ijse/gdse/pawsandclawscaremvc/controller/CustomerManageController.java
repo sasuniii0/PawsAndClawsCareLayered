@@ -123,8 +123,7 @@ public class CustomerManageController implements Initializable {
     void GenerateAllCustomerOnClickAction(ActionEvent event) {
         try {
             JasperReport jasperReport = JasperCompileManager.compileReport(
-                    getClass()
-                            .getResourceAsStream("/Reports/Customer.jrxml"
+                    getClass().getResourceAsStream("/Reports/Customer.jrxml"
                             ));
 
             Connection connection = DBConnection.getInstance().getConnection();
@@ -191,9 +190,9 @@ public class CustomerManageController implements Initializable {
             return;
         }
         if (isValidEmail && isValidContact && isValidName && isValidAddress){
-            CustomerDto customerDto = new CustomerDto(custId, custName, address, email, contactNumber);
+            Customer customer = new Customer(custId, custName, address, email, contactNumber);
 
-            boolean isSaved = customerDAOImpl.save(customerDto);
+            boolean isSaved = customerDAOImpl.save(customer);
             if (isSaved){
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION,"Customer Saved....").show();
@@ -223,7 +222,7 @@ public class CustomerManageController implements Initializable {
 
         ObservableList<CustomerTm> customerTms = FXCollections.observableArrayList();
 
-        for (CustomerDto customerDto : customerDtos) {
+        for (Customer customerDto : customerDtos) {
             CustomerTm customerTm = new CustomerTm(
                     customerDto.getCustomerId(),
                     customerDto.getCustomerName(),
@@ -319,9 +318,9 @@ public class CustomerManageController implements Initializable {
             return;
         }
         if (isValidEmail && isValidContact && isValidName && isValidAddress){
-            CustomerDto customerDto = new CustomerDto(custId, custName, address, email, contactNumber);
+            Customer customer = new Customer(custId, custName, address, email, contactNumber);
 
-            boolean isSaved = customerDAOImpl.update(customerDto);
+            boolean isSaved = customerDAOImpl.update(customer);
             if (isSaved){
                 refreshPage();
 
